@@ -2,11 +2,17 @@ import React from "react";
 import Carousel from "../Carousel/Carousel";
 import Description from "../../Components/Description/Description";
 
-const HomePage = () => {
+const HomePage = ({products, bundles}) => {
+  const featuredProducts = products.filter(
+    (product) => product.featured === true
+  );
+
   return (
     <div>
-      <Carousel />
-      <Carousel />
+      <div>
+        <Carousel items={featuredProducts} />
+        <Carousel items={bundles} />
+      </div>
       <Description />
     </div>
   );
