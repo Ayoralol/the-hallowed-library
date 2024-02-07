@@ -1,0 +1,13 @@
+.wrap {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10px;
+  margin-right: 10px;
+  &__image {
+    max-width: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+}

@@ -1,0 +1,42 @@
+.btn {
+  width: 55px;
+  height: 30px;
+  margin: 3px;
+  font-size: 12px;
+  border: 1px solid #312a1e;
+  border-radius: 5px;
+  background-color: #8c7bb4;
+  box-shadow: 0px 0px 5px 0px #312a1e;
+  transition: all 0.1s ease-in-out;
+  &:hover {
+    background-color: #312a1e;
+    color: #8c7bb4;
+  }
+  &:active {
+    background-color: #312a1e;
+    color: #8c7bb4;
+    transform: scale(0.9);
+  }
+}
+
+.mid {
+  width: 100px;
+  height: 50px;
+}
+
+.sml {
+  width: 75px;
+  height: 40px;
+}
+
+@media (orientation: landscape) and (min-width: 915px) {
+  .btn {
+    width: 100px;
+    height: 50px;
+    font-size: 16px;
+  }
+  .mid {
+    width: 150px;
+    height: 75px;
+  }
+}

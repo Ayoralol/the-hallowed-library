@@ -1,0 +1,17 @@
+.wrap {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  &__info {
+    &__text {
+      font-size: 12px;
+    }
+  }
+  &__image {
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
+    margin: 5px;
+  }
+}

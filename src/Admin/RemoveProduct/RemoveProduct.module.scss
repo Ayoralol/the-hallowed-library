@@ -1,0 +1,31 @@
+.no_admin {
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.wrap {
+  height: 90vh;
+  overflow-y: auto;
+  &__product {
+    margin-bottom: 20px;
+  }
+}
+
+@media (orientation: landscape) and (min-width: 915px) {
+  .wrap {
+    max-width: 1250px;
+    max-height: 85vh;
+    &__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+    }
+    &__product {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+  }
+}
