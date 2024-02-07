@@ -3,6 +3,7 @@ import {
   logInUser,
   updateUserFavorites,
   getUserFavorites,
+  addUser,
 } from "../../services/products.js";
 
 export const UsersContext = createContext();
@@ -13,12 +14,6 @@ const UsersContextProvider = ({children}) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [favorites, setFavorites] = useState([]);
   const [userId, setUserId] = useState(null);
-
-  // TEMPORARY LOGIN ON LOAD//////////
-  useEffect(() => {
-    authenticateUser("ReeceSmith", 28);
-  }, []);
-  // TEMPORARY LOGIN ON LOAD /////////
 
   useEffect(() => {
     const fetchFavorites = async () => {
@@ -35,6 +30,16 @@ const UsersContextProvider = ({children}) => {
     fetchFavorites();
   }, [userId]);
 
+  const createUser = async (name, age) => {
+    try {
+      await addUser(name, age);
+      return true;
+    } catch {
+      window.alert("Error creating user");
+      return false;
+    }
+  };
+
   const authenticateUser = async (name, age) => {
     try {
       const {userId, user} = await logInUser(name, age);
@@ -42,9 +47,11 @@ const UsersContextProvider = ({children}) => {
       setIsAdmin(user.isAdmin);
       setIsLoggedIn(true);
       setUserId(userId);
+      return true;
     } catch (error) {
-      console.error("Error authenticating user: ", error);
+      window.alert(`Error authenticating user: ${error.message}`);
       setIsLoggedIn(false);
+      return false;
     }
   };
 
@@ -52,6 +59,7 @@ const UsersContextProvider = ({children}) => {
     setUserName(null);
     setIsAdmin(false);
     setIsLoggedIn(false);
+    setFavorites([]);
   };
 
   const toggleFavorite = async (itemId) => {
@@ -82,6 +90,7 @@ const UsersContextProvider = ({children}) => {
         setFavorites,
         toggleFavorite,
         userId,
+        createUser,
       }}>
       {children}
     </UsersContext.Provider>

@@ -18,7 +18,8 @@ const ProductPage = ({products, bundles}) => {
   const [selectedStyle, setSelectedStyle] = useState("cornerPoint");
   const [orderAmount, setOrderAmount] = useState(1);
 
-  const {userId, favorites, toggleFavorite} = useContext(UsersContext);
+  const {userId, favorites, toggleFavorite, isLoggedIn} =
+    useContext(UsersContext);
 
   const findProduct = async () => {
     setLoading(true);
@@ -76,8 +77,8 @@ const ProductPage = ({products, bundles}) => {
         <p>Loading...</p>
       ) : data ? (
         <div>
-          <h1>{data.name}</h1>
           <img src={data.image} alt={data.name} />
+          <h1>{data.name}</h1>
           <button onClick={() => toggleFavorite(id)}>
             {favorites.includes(id) ? "Unfavorite" : "Favorite"}
           </button>
@@ -108,7 +109,11 @@ const ProductPage = ({products, bundles}) => {
                 }
               />
             </label>
-            <Button onClick={handleAddToCart}>Add to Cart</Button>
+            <Button
+              onClick={handleAddToCart}
+              disabled={productAmount === 0 || !isLoggedIn}>
+              {isLoggedIn ? "Add to Cart" : "Log in to add to cart"}
+            </Button>
           </form>
         </div>
       ) : (

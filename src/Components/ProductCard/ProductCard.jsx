@@ -9,7 +9,11 @@ const ProductCard = ({id, name, price, image, onClick, adminSec = false}) => {
       <p>{name}</p>
       {price && <p>${price}</p>}
       {!adminSec && (
-        <button onClick={() => toggleFavorite(id)}>
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            toggleFavorite(id);
+          }}>
           {favorites.includes(id) ? "Unfavorite" : "Favorite"}
         </button>
       )}

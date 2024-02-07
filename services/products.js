@@ -8,6 +8,7 @@ import {
   deleteDoc,
   addDoc,
   updateDoc,
+  writeBatch,
 } from "firebase/firestore";
 import {db} from "../config/firebase";
 
@@ -105,11 +106,11 @@ export const getAllUsers = async () => {
   return dataToReturn;
 };
 
-export const addUser = async (user) => {
+export const addUser = async (userName, userAge) => {
   try {
     const users = await getAllUsers();
     const userExists = users.some(
-      (existingUser) => existingUser.userName === user.userName
+      (existingUser) => existingUser.userName === userName
     );
 
     if (userExists) {
@@ -117,13 +118,13 @@ export const addUser = async (user) => {
     }
 
     const newUser = {
-      ...user,
+      userName: userName,
+      userAge: Number(userAge),
       cart: {},
       favorites: [],
       isAdmin: false,
     };
     const docRef = await addDoc(collection(db, "users"), newUser);
-    console.log("User Created with ID: ", docRef.id);
   } catch (error) {
     console.error("Error adding new user: ", error);
     throw error;
@@ -230,4 +231,118 @@ export const addToCart = async (userId, productIds, productAmount, style) => {
   }
 
   await updateDoc(userDocRef, user);
+};
+
+export const addStockToProducts = async () => {
+  try {
+    const querySnapshot = await getDocs(collection(db, "product"));
+
+    const batch = writeBatch(db);
+
+    querySnapshot.docs.forEach((docSnapshot) => {
+      const productRef = doc(db, "product", docSnapshot.id);
+      batch.update(productRef, {inStock: docSnapshot.data().inStock + 5});
+    });
+
+    await batch.commit();
+    console.log("Stock added to all products");
+  } catch (error) {
+    console.error("Error adding stock to products: ", error);
+    throw error;
+  }
+};
+
+export const getUserCartItems = async (userId) => {
+  try {
+    const userDocRef = doc(db, "users", userId);
+    const userDocSnap = await getDoc(userDocRef);
+
+    if (!userDocSnap.exists()) {
+      throw new Error("User not found");
+    }
+
+    const user = userDocSnap.data();
+    const cart = user.cart || {};
+
+    const cartItems = [];
+
+    for (const productId in cart) {
+      const productDocRef = doc(db, "product", productId);
+      const productDocSnap = await getDoc(productDocRef);
+
+      if (!productDocSnap.exists()) {
+        throw new Error(`Product ID ${productId} not found`);
+      }
+
+      const product = productDocSnap.data();
+      const orderAmount = cart[productId].orderAmount;
+      const style = cart[productId].style;
+
+      cartItems.push({
+        id: productId,
+        name: product.name,
+        price: product.price,
+        image: product.image,
+        quantity: orderAmount,
+        style: style,
+      });
+    }
+    console.log(cartItems);
+    return cartItems;
+  } catch (error) {
+    console.error("Error fetching cart items: ", error);
+    throw error;
+  }
+};
+
+export const emptyCart = async (userId) => {
+  if (!window.confirm("Are you sure you want to empty the cart?")) {
+    return;
+  }
+
+  const userDocRef = doc(db, "users", userId);
+  const userDocSnap = await getDoc(userDocRef);
+
+  if (!userDocSnap.exists()) {
+    throw new Error("User not found");
+  }
+
+  const user = userDocSnap.data();
+  const cart = user.cart || {};
+
+  for (const productId in cart) {
+    const productDocRef = doc(db, "product", productId);
+    const productDocSnap = await getDoc(productDocRef);
+
+    if (!productDocSnap.exists()) {
+      throw new Error(`Product ID ${productId} not found`);
+    }
+
+    const product = productDocSnap.data();
+    product.inStock += cart[productId].orderAmount;
+
+    await updateDoc(productDocRef, product);
+  }
+
+  user.cart = {};
+  await updateDoc(userDocRef, user);
+};
+
+export const purchaseCartItems = async (userId) => {
+  if (!window.confirm("Are you sure you want to purchase the items?")) {
+    return;
+  }
+
+  const userDocRef = doc(db, "users", userId);
+  const userDocSnap = await getDoc(userDocRef);
+
+  if (!userDocSnap.exists()) {
+    throw new Error("User not found");
+  }
+
+  const user = userDocSnap.data();
+  user.cart = {};
+  await updateDoc(userDocRef, user);
+
+  window.prompt("Items purchased!");
 };
