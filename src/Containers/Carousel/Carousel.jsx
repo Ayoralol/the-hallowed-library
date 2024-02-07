@@ -1,6 +1,7 @@
-import React, {useState} from "react";
+import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import CarouselItem from "../../Components/CarouselItem/CarouselItem";
+import Button from "../../Components/Button/Button";
 import styles from "./Carousel.module.scss";
 
 const Carousel = ({items}) => {
@@ -20,20 +21,18 @@ const Carousel = ({items}) => {
   };
 
   if (!items[currentIndex]) {
-    return null; // or some fallback UI
+    return null;
   }
 
   return (
-    <div>
-      <button onClick={handlePrevious}>Previous</button>
+    <div className={styles.wrap}>
+      <Button onClick={handlePrevious}>Previous</Button>
       <CarouselItem
         key={items[currentIndex].id}
-        name={items[currentIndex].name}
         image={items[currentIndex].image}
-        price={items[currentIndex].price.toFixed(2)}
         onClick={() => handleNavigate(items[currentIndex].id)}
       />
-      <button onClick={handleNext}>Next</button>
+      <Button onClick={handleNext}>Next</Button>
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import {useState, useContext} from "react";
 import {UsersContext} from "../../Context/UsersContextProvider";
 import Button from "../../Components/Button/Button";
+import styles from "./Login.module.scss";
 
 const Login = ({onBackgroundClick}) => {
   const {authenticateUser, createUser} = useContext(UsersContext);
@@ -30,9 +31,9 @@ const Login = ({onBackgroundClick}) => {
   };
 
   return (
-    <div onClick={onBackgroundClick}>
-      <div onClick={handlePropagation}>
-        <label>
+    <div onClick={onBackgroundClick} className={styles.back}>
+      <div onClick={handlePropagation} className={styles.container}>
+        <label className={styles.container__input}>
           Name:
           <input
             type="text"
@@ -40,7 +41,7 @@ const Login = ({onBackgroundClick}) => {
             onChange={(e) => setName(e.target.value)}
           />
         </label>
-        <label>
+        <label className={styles.container__input}>
           Age:
           <input
             type="number"
@@ -49,22 +50,28 @@ const Login = ({onBackgroundClick}) => {
           />
         </label>
         {!newUser ? (
-          <Button onClick={handleLogin}>Login</Button>
+          <Button onClick={handleLogin} size={"mid"}>
+            Login
+          </Button>
         ) : (
-          <Button onClick={handleNewUser}>Create Account</Button>
+          <Button onClick={handleNewUser} size={"mid"}>
+            Create New Account
+          </Button>
         )}
-        <div>
+        <div className={styles.container__switch}>
           {!newUser ? (
-            <div>
+            <div className={styles.container__switch_contents}>
               <p>Dont have an account yet?</p>{" "}
-              <Button onClick={() => setNewUser(true)}>
+              <Button onClick={() => setNewUser(true)} size={"mid"}>
                 Create a new account
               </Button>
             </div>
           ) : (
-            <div>
+            <div className={styles.container__switch_contents}>
               <p>Already have an account?</p>
-              <Button onClick={() => setNewUser(false)}>Log In</Button>
+              <Button onClick={() => setNewUser(false)} size={"mid"}>
+                Log In
+              </Button>
             </div>
           )}
         </div>

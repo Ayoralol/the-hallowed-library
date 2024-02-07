@@ -1,4 +1,4 @@
-import "./App.scss";
+import styles from "./App.module.scss";
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import AdminPage from "./Admin/AdminPage/AdminPage";
 import HomePage from "./Containers/HomePage/HomePage";
@@ -11,10 +11,15 @@ import RemoveProduct from "./Admin/RemoveProduct/RemoveProduct";
 import UsersContextProvider from "./Context/UsersContextProvider";
 import {useState, useEffect} from "react";
 import {getAllProducts, getAllBundles} from "../services/products.js";
+import {useMediaQuery} from "@mui/material";
 
 function App() {
   const [products, setProducts] = useState([]);
   const [bundles, setBundles] = useState([]);
+
+  const secondLayout = useMediaQuery(
+    "(orientation: landscape) and (min-width: 915px)"
+  );
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -40,7 +45,7 @@ function App() {
   }, []);
 
   return (
-    <>
+    <div className={styles.container}>
       <UsersContextProvider>
         <BrowserRouter>
           <Navigation />
@@ -64,10 +69,10 @@ function App() {
               element={<RemoveProduct products={products} />}
             />
           </Routes>
-          <Footer />
+          {secondLayout && <Footer />}
         </BrowserRouter>
       </UsersContextProvider>
-    </>
+    </div>
   );
 }
 

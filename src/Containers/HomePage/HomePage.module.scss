@@ -1,0 +1,12 @@
+@media (orientation: landscape) and (min-width: 915px) {
+  .wrap {
+    width: 100%;
+    max-width: 1250px;
+    max-height: 85vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+    margin-bottom: 20px;
+  }
+}

@@ -1,12 +1,12 @@
-import React from "react";
+import styles from "./Description.module.scss";
 
 const Description = () => {
   return (
-    <div>
-      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tenetur quis,
-      similique optio quae debitis nesciunt officiis iure excepturi quam ullam
-      obcaecati dolorum earum ut quia suscipit est consequuntur quo?
-    </div>
+    <p className={styles.desc}>
+      Welcome to The Hallowed Library! I design, print, and sell custom made
+      bookmarks mainly based on books that I have read, with some more fun ones
+      sprinkled in.
+    </p>
   );
 };
 

@@ -1,0 +1,17 @@
+.foot {
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  height: 5vh;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  &__link {
+    color: black;
+    text-decoration: none;
+    font-size: 16px;
+    &:hover {
+      color: #8c7bb4;
+    }
+  }
+}

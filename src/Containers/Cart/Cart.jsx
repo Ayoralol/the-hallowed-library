@@ -7,6 +7,7 @@ import {
   purchaseCartItems,
 } from "../../../services/products";
 import Button from "../../Components/Button/Button";
+import styles from "./Cart.module.scss";
 
 const Cart = ({onBackgroundClick}) => {
   const {isLoggedIn, userId, getCartItems} = useContext(UsersContext);
@@ -35,31 +36,39 @@ const Cart = ({onBackgroundClick}) => {
   };
 
   return (
-    <div onClick={onBackgroundClick}>
+    <div onClick={onBackgroundClick} className={styles.back}>
       {isLoggedIn ? (
-        <div onClick={handlePropagation}>
-          {cartItems.map((item) => (
-            <CartCard key={item.id} item={item} />
-          ))}
-          <div>Total Items: {calcTotalItems()}</div>
-          <div>Total Price: ${calcTotal().toFixed(2)}</div>
-          <Button
-            onClick={() => {
-              purchaseCartItems(userId);
-              setCartItems([]);
-            }}>
-            Purchase Items
-          </Button>
-          <Button
-            onClick={() => {
-              emptyCart(userId);
-              setCartItems([]);
-            }}>
-            Empty Cart
-          </Button>
+        <div onClick={handlePropagation} className={styles.container}>
+          <div className={styles.container__totals}>
+            <div>Total Items: {calcTotalItems()}</div>
+            <div>Total Price: ${calcTotal().toFixed(2)}</div>
+          </div>
+          <div className={styles.container__buy}>
+            <Button
+              onClick={() => {
+                purchaseCartItems(userId);
+                setCartItems([]);
+              }}
+              size={"sml"}>
+              Purchase Items
+            </Button>
+            <Button
+              onClick={() => {
+                emptyCart(userId);
+                setCartItems([]);
+              }}
+              size={"sml"}>
+              Empty Cart
+            </Button>
+          </div>
+          <div className={styles.container__items}>
+            {cartItems.map((item) => (
+              <CartCard key={item.id} item={item} />
+            ))}
+          </div>
         </div>
       ) : (
-        <div>Please Log in to view cart</div>
+        <div className={styles.container}>Please Log in to view cart</div>
       )}
     </div>
   );

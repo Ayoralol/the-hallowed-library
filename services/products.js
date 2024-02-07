@@ -344,5 +344,5 @@ export const purchaseCartItems = async (userId) => {
   user.cart = {};
   await updateDoc(userDocRef, user);
 
-  window.prompt("Items purchased!");
+  window.alert("Items purchased!");
 };

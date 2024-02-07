@@ -9,6 +9,7 @@ import {
 } from "../../../services/products";
 import Button from "../../Components/Button/Button";
 import {UsersContext} from "../../Context/UsersContextProvider";
+import styles from "./ProductPage.module.scss";
 
 const ProductPage = ({products, bundles}) => {
   const {id} = useParams();
@@ -72,33 +73,48 @@ const ProductPage = ({products, bundles}) => {
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       {loading ? (
-        <p>Loading...</p>
+        <p className={styles.other}>Loading...</p>
       ) : data ? (
-        <div>
-          <img src={data.image} alt={data.name} />
-          <h1>{data.name}</h1>
-          <button onClick={() => toggleFavorite(id)}>
+        <div className={styles.wrap}>
+          <img
+            src={data.image}
+            alt={data.name}
+            className={styles.wrap__image}
+          />
+          <h3 className={styles.wrap__head}>{data.name}</h3>
+          <Button onClick={() => toggleFavorite(id)}>
             {favorites.includes(id) ? "Unfavorite" : "Favorite"}
-          </button>
-          <p>Price: ${data.price.toFixed(2)}</p>
-          <p>Amount in Stock: {productAmount}</p>
-          <form>
+          </Button>
+          <div className={styles.wrap__text}>
+            <p>Price: ${data.price.toFixed(2)}</p>
+            <p>Amount in Stock: {productAmount}</p>
+          </div>
+          <form className={styles.wrap__form}>
             <label>
-              Corners:
+              Corners:&nbsp;
               <select
                 value={selectedStyle}
                 onChange={(e) => {
                   setSelectedStyle(e.target.value);
                   console.log(selectedStyle);
-                }}>
-                <option value="cornerPoint">Pointed</option>
-                <option value="cornerRound">Round</option>
+                }}
+                className={styles.wrap__form__dropdown}>
+                <option
+                  value="cornerPoint"
+                  className={styles.wrap__form__dropdown__option}>
+                  Pointed
+                </option>
+                <option
+                  value="cornerRound"
+                  className={styles.wrap__form__dropdown__option}>
+                  Round
+                </option>
               </select>
             </label>
             <label>
-              Order Amount:
+              Order Amount:&nbsp;
               <input
                 type="number"
                 min="1"
@@ -107,17 +123,19 @@ const ProductPage = ({products, bundles}) => {
                 onChange={(e) =>
                   setOrderAmount(Math.min(e.target.value, productAmount))
                 }
+                className={styles.wrap__form__input}
               />
             </label>
             <Button
               onClick={handleAddToCart}
-              disabled={productAmount === 0 || !isLoggedIn}>
+              disabled={productAmount === 0 || !isLoggedIn}
+              size={"mid"}>
               {isLoggedIn ? "Add to Cart" : "Log in to add to cart"}
             </Button>
           </form>
         </div>
       ) : (
-        <p>Product not found :(</p>
+        <p className={styles.other}>Product not found :(</p>
       )}
     </div>
   );
