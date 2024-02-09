@@ -5,13 +5,26 @@
   height: 5vh;
   display: flex;
   justify-content: space-around;
-  align-items: center;
+  align-items: flex-start;
+  border-bottom: 1px solid transparent;
+  transition: all 0.3s ease-in-out;
   &__link {
     color: black;
     text-decoration: none;
-    font-size: 16px;
-    &:hover {
-      color: #8c7bb4;
+    cursor: default;
+    &__btn {
+      width: fit-content;
+      height: 30px;
+      margin: 3px;
+      font-size: 16px;
+      border: none;
+      background-color: rgba(0, 0, 0, 0);
+      border-bottom: 1px solid transparent;
+      transition: all 0.3s ease-in-out;
+      &:hover,
+      &:active {
+        border-bottom: 1px solid black;
+      }
     }
   }
 }

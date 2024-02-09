@@ -1,0 +1,12 @@
+.wrap {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  p {
+    margin-top: 10px;
+    font-size: 1.5vw;
+  }
+}

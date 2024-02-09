@@ -1,13 +1,12 @@
 import styles from "./CarouselItem.module.scss";
 
-const CarouselItem = ({image, onClick}) => {
+const CarouselItem = ({item}) => {
   return (
     <div className={styles.wrap}>
       <img
-        src={image}
-        alt={image + "image"}
+        src={item.featuredImage}
+        alt={item.name + "image"}
         className={styles.wrap__image}
-        onClick={onClick}
       />
     </div>
   );

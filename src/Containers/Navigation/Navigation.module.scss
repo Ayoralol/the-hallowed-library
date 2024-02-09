@@ -3,11 +3,11 @@
   height: fit-content;
   display: flex;
   align-items: center;
-  background-color: rgb(77, 77, 77);
+  margin-top: 5px;
   &__image {
     max-height: 15vw;
     border-radius: 100px;
-    margin: 5px;
+    margin-left: 7vw;
   }
   &__title {
     display: none;
@@ -16,6 +16,7 @@
     width: 85vw;
     display: flex;
     justify-content: flex-end;
+    margin-right: 7vw;
   }
 }
 
