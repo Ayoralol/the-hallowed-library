@@ -1,4 +1,5 @@
 import styles from "./Footer.module.scss";
+import Button from "../Button/Button";
 
 const Footer = () => {
   return (
@@ -8,7 +9,9 @@ const Footer = () => {
         href="https://www.etsy.com/au/shop/TheHallowedLibrary"
         target="_blank"
         className={styles.foot__link}>
-        The Hallowed Library Etsy Store
+        <button className={styles.foot__link__btn}>
+          The Hallowed Library Etsy Store
+        </button>
       </a>
     </div>
   );

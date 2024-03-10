@@ -1,13 +1,15 @@
 .wrap {
   width: 50%;
+  height: 80%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   margin-left: 10px;
   margin-right: 10px;
   &__image {
-    max-width: 100%;
-    object-fit: cover;
+    width: auto;
+    max-height: 100%;
+    object-fit: contain;
     border-radius: 10px;
   }
 }

@@ -3,11 +3,13 @@
   height: fit-content;
   display: flex;
   align-items: center;
-  background-color: rgb(77, 77, 77);
+  margin-top: 5px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid rgb(172, 144, 22);
   &__image {
     max-height: 15vw;
     border-radius: 100px;
-    margin: 5px;
+    margin-left: 7vw;
   }
   &__title {
     display: none;
@@ -16,6 +18,7 @@
     width: 85vw;
     display: flex;
     justify-content: flex-end;
+    margin-right: 7vw;
   }
 }
 
@@ -40,7 +43,7 @@
       align-items: center;
       margin: 5px;
       font-size: 2.5vw;
-      font-family: "Courgette", cursive;
+      font-family: "HermosaOpti", cursive;
     }
     &__btn_wrap {
       width: 50vw;

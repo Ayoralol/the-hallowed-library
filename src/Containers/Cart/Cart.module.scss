@@ -14,11 +14,12 @@
 .container {
   width: 70vw;
   height: 70vh;
-  background-color: rgba(255, 255, 255, 0.6);
+  background-color: rgba(0, 0, 0, 1);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  border: 2px solid rgb(172, 144, 22);
   border-radius: 10px;
   &__totals {
     width: 100%;
@@ -43,13 +44,13 @@
 
 @media screen and (orientation: landscape) and (min-width: 915px) {
   .back {
-    background-color: rgba(255, 255, 255, 0);
+    background-color: rgba(10, 10, 10, 0.6);
   }
   .container {
     position: fixed;
     right: 0;
     left: auto;
-    top: 100px;
+    top: 105px;
     width: 50vw;
     height: 75vh;
     &__input {
