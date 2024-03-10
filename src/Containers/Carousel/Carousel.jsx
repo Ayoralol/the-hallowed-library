@@ -42,8 +42,12 @@ const Carousel = ({items}) => {
         <CarouselItem key={items[currentIndex].id} item={items[currentIndex]} />
       </div>
       <div className={styles.wrap__btn}>
-        <Button onClick={handlePrevious}>Previous</Button>
-        <Button onClick={handleNext}>Next</Button>
+        <Button onClick={handlePrevious}>
+          <i className="fa-solid fa-arrow-left fa-lg"></i>
+        </Button>
+        <Button onClick={handleNext}>
+          <i className="fa-solid fa-arrow-right fa-lg"></i>
+        </Button>
       </div>
     </div>
   );

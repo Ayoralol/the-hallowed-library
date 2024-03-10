@@ -5,11 +5,11 @@
   font-size: 12px;
   border: none;
   background-color: rgba(0, 0, 0, 0);
-  border-bottom: 1px solid transparent;
+  border-bottom: 1px solid rgb(172, 144, 22);
   transition: all 0.3s ease-in-out;
   &:hover,
   &:active {
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid rgb(172, 144, 22);
   }
 }
 .mid {
@@ -29,6 +29,7 @@
     width: 100px;
     height: 50px;
     font-size: 16px;
+    border-bottom: 1px solid transparent;
   }
   .mid {
     width: 150px;
